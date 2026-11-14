@@ -33,17 +33,22 @@ def crossings_for_result(result, previous_x, counted_ids):
     """Return new right-to-left person crossings and whether a person is visible."""
     crossings = 0
     visible = False
-    if result.boxes is None or result.boxes.id is None:
+    if result.boxes is None:
+        return crossings, visible
+
+    classes = result.boxes.cls.int().cpu().tolist()
+    boxes = result.boxes.xyxy.cpu().tolist()
+
+    # Person presence can control the gate even before a tracker ID is available.
+    visible = any(cls_id == 0 for cls_id in classes)
+    if result.boxes.id is None:
         return crossings, visible
 
     ids = result.boxes.id.int().cpu().tolist()
-    classes = result.boxes.cls.int().cpu().tolist()
-    boxes = result.boxes.xyxy.cpu().tolist()
 
     for track_id, cls_id, coords in zip(ids, classes, boxes):
         if cls_id != 0:
             continue
-        visible = True
         x1, y1, x2, y2 = coords
         center_x = int((x1 + x2) / 2)
 
