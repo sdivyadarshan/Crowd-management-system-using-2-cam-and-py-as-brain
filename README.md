@@ -137,10 +137,7 @@ No accuracy, latency, or long-duration reliability figures are claimed. Record a
 
 The student project owner led the project concept, physical assembly, component selection, camera setup, hardware integration, testing, and definition of expected behavior. AI assistance was used for code drafting and iteration, troubleshooting guidance, and documentation preparation. The detailed division is in [docs/contributions-and-ai-disclosure.md](docs/contributions-and-ai-disclosure.md). Review and validate every source file before demonstration or deployment.
 
-## License
-
-No license file is included because the repository owner has not specified or authorized a license. Without a license, no open-source reuse permission is granted.
 
 **Repository owner:** [@sdivyadarshan](https://github.com/sdivyadarshan)
 
-Add original project photographs and demonstration footage under media/ when available.
+
