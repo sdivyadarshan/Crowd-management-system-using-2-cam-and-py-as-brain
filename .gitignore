@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+
+# Model weights and generated output
+*.pt
+runs/
+datasets/
+*.mp4
+*.avi
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Arduino build artifacts
+*.hex
+*.elf
+*.map
