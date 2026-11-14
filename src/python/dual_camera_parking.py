@@ -132,11 +132,18 @@ def main():
                 r2, exit_previous, exit_counted
             )
 
+            was_full_before_entry = (occupied >= total_slots)
+
             if entry_events:
-                accepted = min(entry_events, total_slots - occupied)
-                occupied += accepted
-                if accepted:
-                    print(f"ENTRY +{accepted}; occupied={occupied}")
+                if was_full_before_entry:
+                    # Reject the entry event when capacity was already full.
+                    send(arduino, "E")
+                    print("Full capacity: entry attempt rejected; warning sent.")
+                else:
+                    accepted = min(entry_events, total_slots - occupied)
+                    occupied += accepted
+                    if accepted:
+                        print(f"ENTRY +{accepted}; occupied={occupied}")
 
             if exit_events:
                 removed = min(exit_events, occupied)
@@ -154,11 +161,6 @@ def main():
             if desired_gate != last_gate_sent:
                 send(arduino, desired_gate)
                 last_gate_sent = desired_gate
-
-            # Warn only on a new entry crossing while full, not every frame.
-            if available == 0 and entry_events > 0:
-                send(arduino, "E")
-                print("Full capacity: warning sent.")
 
             display1 = annotate(r1.plot(), "ENTRY CAMERA", (0, 255, 0),
                                 available, occupied, total_slots)
